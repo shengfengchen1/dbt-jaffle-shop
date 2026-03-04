@@ -3,7 +3,7 @@
         materialized="incremental",
         unique_key = 'order_id',
         incremental_strategy = 'merge',
-        on_schema_change = 'fail'
+        on_schema_change = 'sync_all_columns'
 
     )
 }}
@@ -24,7 +24,7 @@ with
 
         select
             orders.order_id,
-            orders.customer_id,
+            orders.customer_id as customerids,
             orders.order_date,
             coalesce(order_payments.amount, 0) as amount
 
